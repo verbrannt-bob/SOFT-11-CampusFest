@@ -1,0 +1,53 @@
+:root {
+    --azul: #164a98;
+    --azul-claro: #006AEA;
+    --celeste: #9CC8FF;
+    --gris-claro: #d2d2d2;
+    --gris-oscuro: #7c7b75;
+    --blanco: white;
+}
+
+@font-face {
+    font-family: 'D-DIN';
+    src: url('https://githubusercontent.com') format('woff2'),
+         url('https://githubusercontent.com') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.topbar {
+    background-color: var(--blanco);
+    height: 50px;
+}
+
+.barra {
+    height: inherit;
+}
+
+.logo-container {
+    position: relative;
+    height: inherit;
+    border: none;
+    background-color: var(--azul-claro);
+}
+
+.logo{
+    font-family: 'D-DIN', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+    padding: 0;
+    color: var(--blanco);
+    height: inherit;
+    border: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0);
+    left: 0;
+    top:-10px;
+}
+
+
+.bar-btn{
+    height: inherit;
+    background-color: var(--blanco);
+    border: none;
+}
