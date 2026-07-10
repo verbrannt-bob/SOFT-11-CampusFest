@@ -48,7 +48,6 @@ nav a {
     height: inherit;
     border: none;
     background-color: var(--blanco);
-    /* border-bottom: solid var(--azul-claro) 2px; */
 }
 
 .logo{
