@@ -1,0 +1,42 @@
+:root {
+    --azul: #164a98;
+    --azul-claro: #006AEA;
+    --celeste: #9CC8FF;
+    --gris-claro: #d2d2d2;
+    --gris-oscuro: #7c7b75;
+    --blanco: white;
+}
+
+
+.formulario {
+    margin-top: 20px;
+    width: 40vw;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.input-requerido{
+    font-weight: bold;
+    color: var(--azul);
+}
+
+#sugerenciasActividad {
+    z-index: 1000; 
+    max-height: 220px; 
+    overflow-y: auto;
+}
+
+
+.contenedor-btn{
+    display: flex;
+    flex-direction: column;
+}
+.btn-registrar{
+    background-color: var(--azul);
+    padding: 1rem;
+    border: var(--blanco) solid 1px;
+    border-radius: 12px;
+    color: var(--blanco);
+    flex: 1 1 0;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFest</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/formulario.css">
+
+</head>
+
+<body>
+    <nav class="container-fluid topbar">
+        <ul class="row d-flex justify-content-between align-items-center barra">
+            <li class="col-2 logo-container"><a class="logo" href="./index.html">CampusFest</a></li>
+            <li class="col-1 navbar-item"><a href="./actividades.html">Actividades</a></li>
+            <li class="col-1 navbar-item"><a href="./actividades.html">Inscripcion</a></li>
+            <li class="col-1 navbar-item"><a href="./agenda.html">Agenda</a></li>
+            <li class="col-1 navbar-item"><a href="./stands.html">Stands</a></li>
+            <li class="col-1 navbar-item"><a href="./contacto.html">Contacto</a></li>
+            <li class="col-1 navbar-item navbar-user"><i class="fa-regular fa-user fa-xl"></i></li>
+        </ul>
+    </nav>
+
+</body>
+
+
+<main class="container-fluid">
+    <div class="row d-flex align-items-center justify-content-center">
+        <form class="formulario">
+
+            <div class="mb-3">
+                <label for="nombreCompleto" class="form-label">
+                    Nombre completo
+                    <span class="input-requerido" aria-hidden="true">*</span>
+                </label>
+                <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="identificacion" class="form-label">
+                    Identificación
+                    <span class="input-requerido" aria-hidden="true">*</span>
+                </label>
+                <input type="text" class="form-control" id="identificacion" name="identificacion" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="correoInstitucional" class="form-label">
+                    Correo institucional
+                    <span class="input-requerido" aria-hidden="true">*</span>
+                </label>
+                <input type="email" class="form-control" id="correoInstitucional" name="correoInstitucional" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="telefono" class="form-label">
+                    Teléfono
+                    <span class="input-requerido" aria-hidden="true">*</span>
+                </label>
+                <input type="tel" class="form-control" id="telefono" name="telefono" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="carreraCurso" class="form-label">
+                    Carrera o Curso
+                    <span class="input-requerido" aria-hidden="true">*</span>
+                </label>
+                <input type="text" class="form-control" id="carreraCurso" name="carreraCurso" required>
+            </div>
+
+            <div class="mb-3 position-relative">
+                <label for="actividad" class="form-label">
+                    Actividad
+                    <span class="input-requerido" aria-hidden="true">*</span>
+                </label>
+                <input type="text" class="form-control" id="actividad" name="actividad"
+                    placeholder="Escriba una actividad" autocomplete="off" required>
+
+                <div id="sugerenciasActividad" class="list-group position-absolute top-100 start-0 w-100 mt-1 shadow-sm d-none"></div>
+            </div>
+
+            <div class="contenedor-btn"><button type="submit" class="btn-registrar">Registrar</button></div>
+        </form>
+    </div>
+</main>
+
+<script src="./js/formularioActividad.js"></script>
+
+</html>
