@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 const Certificacion = require("../models/actividad.model");
 const Actividad = require('../models/actividad.model');
