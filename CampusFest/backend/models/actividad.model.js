@@ -33,7 +33,7 @@ const schemaActividad = new mongoose.Schema({
         type: String,
         required: true
     },
-    vistantesInscritos: [
+    visitantesInscritos: [
         {
             type: Schema.Types.ObjectId,
             ref: "Visitante"

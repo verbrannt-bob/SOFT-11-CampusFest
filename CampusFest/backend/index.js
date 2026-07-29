@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 3000; //Usar el puerto indicado en .env o si no
 
 // Importación de rutas
 const standRoute = require("./routes/stand.route");
+const actividadRoute = require("./routes/actividad.route");
+const visitanteRoute = require("./routes/visitante.route");
 
 
 
@@ -26,6 +28,9 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Rutas
 app.use("/stands", standRoute);
+app.use("/actividades", actividadRoute);
+app.use("/visitantes", visitanteRoute);
+
 
 
 
