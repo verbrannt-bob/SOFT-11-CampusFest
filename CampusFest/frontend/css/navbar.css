@@ -7,14 +7,6 @@
     --blanco: white;
 }
 
-@font-face {
-    font-family: 'D-DIN';
-    src: url('https://githubusercontent.com') format('woff2'),
-         url('https://githubusercontent.com') format('woff');
-    font-weight: bold;
-    font-style: normal;
-}
-
 
 nav ul {
   list-style-type: none; 
@@ -52,7 +44,7 @@ nav a {
 }
 
 .logo{
-    font-family: 'D-DIN', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'DIN Alternate', sans-serif;                                            
     font-weight: bold;
     font-size: 35px;
     padding: 0;
@@ -69,7 +61,7 @@ nav a {
     height: inherit;
     background-color: var(--blanco);
     border: none;
-    font-family: 'D-DIN', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'DIN Alternate', sans-serif;                                            
     color: var(--azul-claro);
     font-size: 15px;
     border-bottom: var(--azul-claro) solid 1px;
