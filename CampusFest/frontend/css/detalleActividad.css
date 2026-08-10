@@ -1,0 +1,155 @@
+:root {
+    --navbar-height: 50px;
+    --azul: #164a98;
+    --azul-claro: #006AEA;
+    --celeste: #9CC8FF;
+    --gris-claro: #d2d2d2;
+    --gris-oscuro: #7c7b75;
+    --blanco: white;
+}
+
+.body{
+    font-family: CircularStd, sans-serif;
+}
+
+@media screen and (width >= 992px) {
+    .contenedor {
+        height: calc(94vh - var(--navbar-height) - 1px);
+    }
+}
+
+@media screen and (width < 992px) {
+    .contenedor {
+        height: 200vh;
+    }
+}
+
+.contenedor {
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    font-family: CircularStd, sans-serif;
+}
+
+.fila1 {
+    height: 10%;
+    font-weight: 700;
+}
+
+@media screen and (width >= 992px) {
+    .fila2 {
+        height: 60%;
+    }
+}
+
+@media screen and (width < 992px) {
+    .fila2 {
+        height: 70%;
+    }
+}
+
+.fila3 {
+    height: 20%;
+}
+
+.caja{
+    display: flex;
+    align-items: center;
+}
+
+.caja-span {
+    width: 100%;
+    border: var(--azul) 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.caja-p {
+    border: var(--azul) solid 1px;
+    border-radius: 5px;
+    width: 100%;
+    flex-grow: 1;
+    padding: 15px;
+    margin: 0;
+}
+
+.nombre{
+    justify-content: start;
+}
+
+.categoria{
+    /* justify-content: center; */
+}
+
+.fecha {
+    height: 25%;
+}
+
+@media screen and (width < 992px) {
+    .fecha {
+        margin-top: 30px;
+    }
+}
+.caja-fecha {
+    width: 100%;
+}
+
+.caja-fecha i {
+    color: var(--azul);
+}
+
+.caja-fecha span {
+    border-color: var(--azul);
+    background-color: var(--blanco);
+}
+
+.ubicacion {
+    height: 25%;
+}
+
+.duracion {
+    height: 25%;
+}
+
+.cupos{
+    height: 25%;
+}
+
+@media screen and (width < 992px) {
+    .cupos{
+        margin-top: 30px;
+    }
+}
+#nombre {
+    font-size: 28px;
+    color: var(--azul);
+}
+
+#categoria {
+    border: var(--azul) solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#ubicacion {
+    padding: 3px;
+}
+
+#fechaHora {
+    border-color: var(--azul);
+}
+
+#btnInscripcion {
+    background-color: var(--azul);
+    color: var(--blanco);
+    border-radius: 5px;
+    border: black solid 1px;
+    padding: 5px;
+    width: 100%;
+    /* margin-bottom: 10px; */
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+}
