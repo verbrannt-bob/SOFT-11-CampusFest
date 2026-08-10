@@ -66,7 +66,7 @@ router.patch("/visitantes/:id", async (req, res) => {
   try {
     const actividad = await Actividad.findById(id);
 
-    if(actividad.cupos <= actividad.visitantesInscritos.length){
+    if (actividad.cupos <= actividad.visitantesInscritos.length) {
       return res.status(401).json({ error: "La Actividad esta llena" });
     }
 
@@ -78,7 +78,7 @@ router.patch("/visitantes/:id", async (req, res) => {
     if (!actividadActualizada) {
       return res.status(404).json({ error: "Actividad no encontrado" });
     }
-    res.status(200).json({mensaje: "Actividad Actualizada", actividad: actividadActualizada });
+    res.status(200).json({ mensaje: "Actividad Actualizada", actividad: actividadActualizada });
   } catch (error) {
     res.status(400).json({ mensajeError: error.message });
   }
@@ -132,7 +132,7 @@ router.patch("/admitir/:id", async (req, res) => {
   try {
     const actividad = await Actividad.findById(id);
     if (!actividad) {
-      return res.status(404).json({ error: "Actividad no encontrado" });
+      return res.status(404).json({ error: "Actividad no encontrada" });
     }
     const cantidad = actividad.cupos - actividad.visitantesInscritos.length;
     const idsPorMover = actividad.listaEspera.slice(0, cantidad);
@@ -143,18 +143,18 @@ router.patch("/admitir/:id", async (req, res) => {
       id,
       {
         $push: { visitantesInscritos: { $each: idsPorMover } },
-        $pull: { listaEspera: {$in: idsPorMover}}
+        $pull: { listaEspera: { $in: idsPorMover } }
       },
       { returnDocument: "after" }
     )
     res.status(200).json(actividadActualizada);
-  } catch (error){
+  } catch (error) {
     res.status(400).json({ mensajeError: error.message });
   }
 })
 
 //delete
-router.delete("/:id", async(req, res) => {
+router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -163,13 +163,41 @@ router.delete("/:id", async(req, res) => {
       return res.status(404).json({ error: "Actividad no encontrado" });
     }
     await Visitante.updateMany(
-      {actividades: id},
-      {$pull: {actividades: id}}
+      { actividades: id },
+      { $pull: { actividades: id } }
     );
 
     res.status(200).json({
-            mensaje: "Actividad eliminada y visitantes actualizados"
-        });
+      mensaje: "Actividad eliminada y visitantes actualizados"
+    });
+  } catch (error) {
+    res.status(400).json({ mensajeError: error.message });
+  }
+})
+
+//put
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const dataActualizada = req.body;
+
+  try {
+    let actividad = await Actividad.findById(id);
+    if(actividad.cupos > dataActualizada.cupos){
+      return res.status(499).json({ error: "La cantidad de cupos no puede disminuir" });
+    }
+
+    actividad = await Actividad.findByIdAndUpdate(
+      id,
+      dataActualizada,
+      {
+        returnDocument: "after",
+        runValidators: true
+      }
+    );
+    if (!dataActualizada.nombre || !dataActualizada.descripcion || !dataActualizada.categoria || !dataActualizada.cupos || !dataActualizada.horario.fechaInicio || !dataActualizada.horario.fechaFinal || !dataActualizada.ubicacion || !dataActualizada.requisitos) {
+      return res.status(404).json({ error: "Campos incompletos" });
+    }
+    res.status(200).json({ mensaje: "Actividad actualizado", actividad });
   } catch (error) {
     res.status(400).json({ mensajeError: error.message });
   }
