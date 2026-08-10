@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 //Esquema "Visitante"
 const schemaVisitante = mongoose.Schema({
@@ -20,7 +21,7 @@ const schemaVisitante = mongoose.Schema({
     },
     actividades: [
         {
-            type: Schema.Types.ObjectID,
+            type: Schema.Types.ObjectId,
             ref: "Actividad"
         }
     ]
