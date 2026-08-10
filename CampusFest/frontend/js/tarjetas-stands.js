@@ -20,9 +20,22 @@ async function cargarTarjetas() {
                 <div class="stand-card">
                     <div class="card-header">
                         <p>${stand.nombre}</p>
-                        <button class="btn-editar">
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        <button class="btn-menu" type="button" aria-label="Opciones de la tarjeta ${stand.nombre}" title="Editar Stand" aria-expanded="false" aria-haspopup="true">
+                            <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
                         </button>
+                        <div class="menu-opciones" role="menu" hidden>
+
+                            <button type="button" class="btn-editar">
+                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                                Editar
+                            </button>
+
+                            <button type="button" class="btn-eliminar">
+                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                Eliminar
+                            </button>
+
+                        </div>
                     </div>
                 
                     <div class="card-body">
@@ -40,11 +53,68 @@ async function cargarTarjetas() {
 
             contenedor.appendChild(tarjeta);
 
+            //Boton Menu
+            const botonMenu = tarjeta.querySelector(".btn-menu");
+            const menuOpciones = tarjeta.querySelector(".menu-opciones");
+            const standCard = tarjeta.querySelector(".stand-card");
+
+            botonMenu.addEventListener("click", () => {
+
+                const estaAbierto = !menuOpciones.hidden;
+                const tarjetaExistente = contenedor.querySelector(".input-nombre");
+    
+                if (tarjetaExistente) {
+                    return;
+                }
+                
+                menuOpciones.hidden = estaAbierto;
+
+                botonMenu.setAttribute(
+                    "aria-expanded",
+                    !estaAbierto
+                );
+
+            });
+
+            //Esconder menu cuando el cursor salga de la tarjeta
+            standCard.addEventListener("mouseleave", () => {
+
+                menuOpciones.hidden = true;
+
+                botonMenu.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+            });
+
+            //Boton Editar
             const botonEditar = tarjeta.querySelector(".btn-editar");
 
             botonEditar.addEventListener("click", () => {
 
+                const tarjetaExistente = contenedor.querySelector(".input-nombre");
+    
+                if (tarjetaExistente) {
+                    return;
+                }
+
                 editarTarjeta(tarjeta, stand);
+
+            });
+
+            // Botón Eliminar
+            const botonEliminar = tarjeta.querySelector(".btn-eliminar");
+
+            botonEliminar.addEventListener("click", () => {
+
+                const tarjetaExistente = contenedor.querySelector(".input-nombre");
+    
+                if (tarjetaExistente) {
+                    return;
+                }
+
+                eliminarStand(stand._id);
 
             });
 
@@ -57,34 +127,33 @@ function crearTarjetaVacia(){
 
     tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
             tarjeta.innerHTML = `
-                <div class="stand-card">
+                <div class="stand-card" aria-label="Formulario para crear un nuevo stand" role="region">
                     <div class="card-header">
-                        <input type="text" class="form-control input-nombre" placeholder="Nombre del Stand">
+                        <input id="nombre-stand" type="text" class="form-control input-nombre" placeholder="Nombre del Stand" aria-required="true" required>
                     </div>
                 
                     <div class="card-body">
-                            <p><strong>Categoría</strong>
-                                <select class="form-control input-categoria">
+                            <label for="categoria">Categoría</label>
+                                <select id="categoria-stand" class="form-control input-categoria" aria-required="true" required>
                                     <option value="" disabled selected>Seleccione una categoría</option>
-                                    <option value="Actividades culturales">Actividades culturales</option>
+                                    <option value="Culturales">Culturales</option>
                                     <option value="Deportivas">Deportivas</option>
                                     <option value="Tecnológicas">Tecnológicas</option>
                                     <option value="Artísticas">Artísticas</option>
                                     <option value="Gastronómicas">Gastronómicas</option>
                                     <option value="Recreativas">Recreativas</option>
                                 </select>
-                            </p>
-                            <p><strong>Responsable</strong><input type="text" class="form-control input-responsable" placeholder="Responsable"</p>
-                            <p><strong>Ubicación</strong><input type="text" class="form-control input-ubicacion" placeholder="Ubicación"></p>
-                            <p><strong>Descripción</strong><textarea class="form-control input-descripcion" placeholder="Descripcion"></textarea></p>
+                            <label for="responsable-stand">Responsable</label><input type="text" class="form-control input-responsable" placeholder="Responsable" aria-required="true" required>
+                            <label for="ubicacion-stand">Ubicación</label><input type="text" class="form-control input-ubicacion" placeholder="Ubicación" aria-required="true" required>
+                            <label for="descripcion-stand">Descripción</label><textarea class="form-control input-descripcion" placeholder="Descripcion" aria-required="true" required></textarea>
                     </div>
                     <div class="card-footer">
 
-                        <button class="btn-cancelar">
+                        <button class="btn-cancelar" type="button" aria-label="Cancelar creación del stand">
                             Cancelar
                         </button>
 
-                        <button class="btn-guardar">
+                        <button class="btn-guardar" type="button" aria-label="Guardar nuevo stand">
                             Guardar
                         </button>
 
@@ -183,14 +252,14 @@ async function guardarStand(tarjeta) {
 
 async function editarTarjeta(tarjeta, stand) {
     tarjeta.innerHTML = `
-        <div class="stand-card">
+        <div class="stand-card" role="region" aria-label="Formulario para editar el stand ${stand.nombre}">
             <div class="card-header">
-                <input type="text" class="form-control input-nombre" value="${stand.nombre}">
+                <input type="text" class="form-control input-nombre" value="${stand.nombre}" id="nombre-stand" aria-required="true" required>
 
             </div>
             <div class="card-body">
-                <p><strong>Categoría</strong>
-                    <select class="form-control input-categoria">
+                <label for="categoria-stand">Categoría</label>
+                    <select id="categoria-stand" class="form-control input-categoria" aria-required="true" required>
 
                         <option value="" disabled
                             ${stand.categoria === "" ? "selected" : ""}>
@@ -228,28 +297,24 @@ async function editarTarjeta(tarjeta, stand) {
                         </option>
 
                     </select>
-                </p>
 
-                <p><strong>Responsable</strong>
-                    <input type="text" class="form-control input-responsable" value="${stand.responsable}">
-                </p>
+                <label for="responsable-stand">Responsable</label>
+                    <input id="responsable-stand" type="text" class="form-control input-responsable" value="${stand.responsable}" aria-required="true" required>
 
-                <p><strong>Ubicación</strong>
-                    <input type="text" class="form-control input-ubicacion" value="${stand.ubicacion}">
-                </p>
+                <label for="ubicacion-stand">Ubicación</label>
+                    <input id="ubicacion-stand" type="text" class="form-control input-ubicacion" value="${stand.ubicacion}" aria-required="true" required>
 
-                <p><strong>Descripción</strong>
-                    <textarea class="form-control input-descripcion">${stand.descripcion}</textarea>
-                </p>
+                <label for="descripcion-stand">Descripción</label>
+                    <textarea id="descripcion-stand" class="form-control input-descripcion" aria-required="true" required>${stand.descripcion}</textarea>
             </div>
 
             <div class="card-footer">
 
-                <button class="btn-cancelar">
+                <button class="btn-cancelar" type="button" aria-label="Cancelar creación del stand">
                     Cancelar
                 </button>
 
-                <button class="btn-guardar">
+                <button class="btn-guardar" type="button" aria-label="Guardar nuevo stand">
                     Guardar
                 </button>
 
@@ -328,6 +393,49 @@ async function actualizarStand(tarjeta, id) {
 
     }
 
+}
+
+async function eliminarStand(id){
+    const resultado = await Swal.fire({
+        title: "¿Eliminar stand?",
+        text: "Esta acción no se puede deshacer.",
+        icon: "warning",
+        iconColor: "#006AEA",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#164a98",
+        reverseButtons: true
+    });
+
+    if (!resultado.isConfirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `http://localhost:3000/stands/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar el Stand");
+        }
+
+        cargarTarjetas();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo eliminar el Stand");
+
+    }
 }
 
 
