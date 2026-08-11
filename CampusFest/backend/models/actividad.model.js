@@ -12,7 +12,7 @@ const schemaActividad = new mongoose.Schema({
     },
     categoria: {
         type: String,
-        enum: ['Actividades culturales', 'Deportivas', 'Tecnológicas', 'Artísticas', 'Gastronómicas', 'Recreativas'],
+        enum: ['Culturales', 'Deportivas', 'Tecnológicas', 'Artísticas', 'Gastronómicas', 'Recreativas'],
         required: true
     },
     cupos: {
@@ -44,7 +44,11 @@ const schemaActividad = new mongoose.Schema({
             type: Schema.Types.ObjectId,
             ref: "Visitante"
         }
-    ]
+    ],
+    requisitos: {
+        type: String,
+        required: true
+    }
 
 });
 
