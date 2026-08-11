@@ -1,4 +1,6 @@
 const contenedor = document.getElementById("contenedor");
+window.tarjetasActividad = [];
+let listaActividades = [];
 const btnCreacion = document.getElementById("btnCreacion");
 
 
@@ -24,27 +26,58 @@ function formatearHora(fecha) {
 
 async function cargarTarjetas() {
 
-    fetch("http://localhost:3000/actividades", {
-        method: "GET",
-        headers: {
-            "Content-Type": "Application/json"
+    try {
+
+        const response = await fetch("http://localhost:3000/actividades", {
+            method: "GET",
+            headers: {
+                "Content-Type": "Application/json"
+            }
+        });
+        if (!response.ok) {
+            throw new Error("Error al obtener las actividades");
         }
-    })
-        .then(response => response.json())
-        .then(listaActividades => {
-            contenedor.innerHTML = "";
 
-            listaActividades.forEach(actividad => {
-                const tarjeta = document.createElement("div");
+        listaActividades = await response.json();
 
-                tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
-                tarjeta.innerHTML = `
+        mostrarTarjetas(listaActividades);
+
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function mostrarTarjetas(actividades) {
+
+    contenedor.innerHTML = "";
+
+    window.tarjetasActividad = [];
+
+    actividades.forEach(actividad => {
+        const tarjeta = document.createElement("div");
+
+        tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
+        tarjeta.innerHTML = `
                 <div class="actividad-card">
                     <div class="card-header">
                         <p>${actividad.nombre}</p>
-                        <button class="btn-editar">
-                            <i class="fa-regular fa-pen-to-square"></i>
+                        <button class="btn-menu" type="button" aria-label="Opciones de la tarjeta ${actividad.nombre}" title="Menu Actividad" aria-expanded="false" aria-haspopup="true">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
+                        <div class="menu-opciones" role="menu" hidden>
+
+                            <button type="button" class="btn-editar">
+                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                                Editar
+                            </button>
+
+                            <button type="button" class="btn-eliminar">
+                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                Eliminar
+                            </button>
+
+                        </div>
                     </div>
                 
                     <div class="card-body">
@@ -68,24 +101,35 @@ async function cargarTarjetas() {
                 </div>
             `;
 
-                contenedor.appendChild(tarjeta);
+        contenedor.appendChild(tarjeta);
 
-                const botonEditar = tarjeta.querySelector(".btn-editar");
+        //Boton Menu
+        const botonMenu = tarjeta.querySelector(".btn-menu");
+        const menuOpciones = tarjeta.querySelector(".menu-opciones");
+        const actividadCard = tarjeta.querySelector(".actividad-card");
 
-                botonEditar.addEventListener("click", () => {
+        botonMenu.addEventListener("click", () => {
 
-                    localStorage.setItem("idActividad", actividad._id);
-                    window.location.href = "./actualizarActividad.html";
-                })
+            const estaAbierto = !menuOpciones.hidden;
 
+            menuOpciones.hidden = estaAbierto;
 
-                const botonDetalles = tarjeta.querySelector(".btn-detalles");
+            botonMenu.setAttribute(
+                "aria-expanded",
+                !estaAbierto
+            );
 
-                botonDetalles.addEventListener("click", () => {
+        });
 
-                    localStorage.setItem("idActividad", actividad._id);
-                    window.location.href = "./detalleActividad.html";
-                })
+        //Esconder menu cuando el cursor salga de la tarjeta
+        actividadCard.addEventListener("mouseleave", () => {
+
+            menuOpciones.hidden = true;
+
+            botonMenu.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
                 window.addEventListener('storage', toggleBotones);
 
@@ -103,6 +147,158 @@ async function cargarTarjetas() {
                 toggleBotones();
             });
         });
+
+        //Boton Editar
+        const botonEditar = tarjeta.querySelector(".btn-editar");
+
+        botonEditar.addEventListener("click", () => {
+
+            localStorage.setItem("idActividad", actividad._id);
+            window.location.href = "./actualizarActividad.html";
+
+        });
+
+
+        const botonEliminar = tarjeta.querySelector(".btn-eliminar");
+
+        botonEliminar.addEventListener("click", () => {
+
+            eliminarActividad(actividad._id);
+
+        });
+
+
+
+        const botonDetalles = tarjeta.querySelector(".btn-detalles");
+
+        botonDetalles.addEventListener("click", () => {
+
+            localStorage.setItem("idActividad", actividad._id);
+            window.location.href = "./detalleActividad.html";
+        })
+
+
+        window.addEventListener('storage', toggleBotones);
+
+        function toggleBotones() {
+            console.log("toggle botones");
+            if (localStorage.getItem("autenticado") == "true") {
+                botonMenu.classList.remove("d-none");
+                btnCreacion.classList.remove("d-none");
+            } else {
+                botonMenu.classList.add("d-none");
+                btnCreacion.classList.add("d-none");
+            }
+        }
+
+        toggleBotones();
+
+
+        window.tarjetasActividad.push(tarjeta);
+
+        if (localStorage.getItem("dark") == "true") {
+            tarjeta.classList.add("tarjeta-dark");
+        }
+    });
 }
+
+async function eliminarActividad(id) {
+    const resultado = await Swal.fire({
+        title: "¿Eliminar Actividad?",
+        text: "Esta acción no se puede deshacer.",
+        icon: "warning",
+        iconColor: "#006AEA",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#dc3545",
+        cancelButtonColor: "#164a98",
+        reverseButtons: true
+    });
+
+    if (!resultado.isConfirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `http://localhost:3000/actividades/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Error al eliminar la actividad");
+        }
+
+        cargarTarjetas();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("No se pudo eliminar la actividad");
+
+    }
+}
+
+const buscador = document.getElementById("buscador");
+const filtroCategoria = document.getElementById("filtro-categoria");
+const filtroDisponibilidad = document.getElementById("filtro-disponibilidad");
+
+function filtrarActividades() {
+
+    const texto = buscador.value.toLowerCase().trim();
+    const categoria = filtroCategoria.value;
+    const disponibles = filtroDisponibilidad.checked;
+
+    const actividadesFiltradas = listaActividades.filter(actividad => {
+
+        const coincideBusqueda =
+            actividad.nombre.toLowerCase().includes(texto) ||
+            actividad.descripcion.toLowerCase().includes(texto) ||
+            actividad.ubicacion.toLowerCase().includes(texto);
+
+        const coincideCategoria =
+            categoria === "" ||
+            actividad.categoria === categoria;
+
+        const cuposDisponibles = actividad.cupos - (actividad.visitantesInscritos?.length || 0);
+
+        const coincideDisponibilidad =
+            !disponibles ||
+            cuposDisponibles > 0;
+
+        return coincideBusqueda && coincideCategoria && coincideDisponibilidad;
+
+    });
+
+    mostrarTarjetas(actividadesFiltradas);
+}
+
+buscador.addEventListener("input", filtrarActividades);
+
+filtroCategoria.addEventListener("change", filtrarActividades);
+
+filtroDisponibilidad.addEventListener("change", filtrarActividades);
+
+const botonFiltro = document.getElementById("btn-filter");
+const panelFiltros = document.getElementById("panel-filtros");
+
+botonFiltro.addEventListener("click", () => {
+
+
+    panelFiltros.hidden = !panelFiltros.hidden;
+
+
+    botonFiltro.setAttribute(
+        "aria-expanded",
+        String(!panelFiltros.hidden)
+    );
+
+});
 
 cargarTarjetas();

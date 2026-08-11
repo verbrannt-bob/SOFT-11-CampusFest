@@ -53,7 +53,7 @@
 }
 
 
-.tarjeta-dark .stand-card,.tarjeta-dark .btn-menu,.tarjeta-dark .menu-opciones,.tarjeta-dark .menu-opciones button{
+.tarjeta-dark .stand-card,.tarjeta-dark .btn-menu,.tarjeta-dark .menu-opciones,.tarjeta-dark .menu-opciones button, .tarjeta-dark .actividad-card{
     background-color: var(--gris-medio);
     color: var(--blanco);
 }
@@ -76,4 +76,43 @@
 .tarjeta-dark textarea:focus {
     background-color: var(--gris-oscuro);
     color: var(--blanco);
+}
+
+.btn-dark.filter-btn, .search-dark .search-btn{
+    background:none;
+    color: var(--celeste);
+}
+
+.search-dark, .search-dark .search-input::placeholder, .body-dark #filtro-categoria{
+    background: var(--gris-medio);
+    color: var(--blanco);
+}
+
+.tarjeta-dark .actividad-card .btn-detalles{
+    color: var(--blanco);
+}
+
+
+.body-dark .panel-filtros {
+    background-color: var(--gris-medio);
+    border-color: var(--blanco);
+}
+
+.body-dark .panel-filtros label {
+    color: var(--blanco);
+}
+
+.body-dark #filtro-categoria {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco);
+    border-color: var(--blanco);
+}
+
+.body-dark #filtro-categoria option {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco);
+}
+
+.body-dark #filtro-disponibilidad {
+    accent-color: var(--celeste);
 }

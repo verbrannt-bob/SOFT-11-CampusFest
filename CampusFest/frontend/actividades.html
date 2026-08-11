@@ -92,26 +92,56 @@
 
                 <div class="search-bar">
 
-                    <input type="text" class="search-input" placeholder="Buscar actividad">
+                    <input id="buscador" type="text" class="search-input" placeholder="Buscar actividad">
 
-                    <button class="search-btn">
+                    <button id="btn-buscar" class="search-btn">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
+
 
                 </div>
 
             </div>
-
             <div class="col-auto">
+                <div class="filtro-container">
 
-                <button class="filter-btn">
+                    <button id="btn-filter" class="filter-btn" aria-expanded="false" aria-haspopup="true">
 
-                    <i class="fa-solid fa-filter"></i>
+                        <i class="fa-solid fa-filter"></i>
 
-                </button>
+                    </button>
+                    <div id="panel-filtros" class="panel-filtros" hidden>
 
+                        <div class="filtro-item">
+
+                            <label for="filtro-categoria">
+                                Categoría
+                            </label>
+
+                            <select id="filtro-categoria">
+                                <option value="">Todas</option>
+                                <option value="Actividades culturales">Culturales</option>
+                                <option value="Deportivas">Deportivas</option>
+                                <option value="Tecnológicas">Tecnológicas</option>
+                                <option value="Artísticas">Artísticas</option>
+                                <option value="Gastronómicas">Gastronómicas</option>
+                            </select>
+
+                        </div>
+
+                        <div class="filtro-item filtro-disponibilidad">
+
+                            <input type="checkbox" id="filtro-disponibilidad">
+
+                            <label for="filtro-disponibilidad">
+                                Solo con cupos disponibles
+                            </label>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
-
         </div>
 
     </div>
@@ -137,12 +167,10 @@
         </button>
     </a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- SweetAlert -->
+    <!-- SweetAlert-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="./js/tarjetas-actividades.js"></script>
     <script src="./js/hamburger.js"></script>
     <script src="./js/login.js"></script>
