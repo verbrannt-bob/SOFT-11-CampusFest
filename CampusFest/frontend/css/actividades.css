@@ -62,7 +62,7 @@ body{
 
 /* BOTÓN MENÚ TARJETA*/
 
-.btn-editar{
+.btn-menu{
 
     background:none;
 
@@ -206,7 +206,7 @@ body{
 
     background:transparent;
 
-    color:var(--gris-oscuro);
+    color:var(--azul-claro);
 
     font-size:18px;
 
@@ -224,9 +224,165 @@ body{
 
     font-size:28px;
 
-    color:#333;
+    color:var(--azul-claro);
 
     cursor:pointer;
 
 }
 
+
+
+.card-header {
+    position: relative;
+}
+
+.menu-opciones {
+    position: absolute;
+    top: 45px;
+    right: 18px;
+
+    width: 120px;
+
+    background: white;
+    border: 1px solid var(--gris-claro);
+    border-radius: 8px;
+
+    padding: 5px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+    z-index: 10;
+}
+
+.menu-opciones button {
+    width: 100%;
+
+    border: none;
+    background: none;
+
+    text-align: left;
+
+    padding: 8px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.menu-opciones button:hover {
+    background: #f0f0f0;
+}
+
+.btn-eliminar {
+    color: #dc3545;
+}
+
+/* CONTENEDOR DEL BOTÓN Y FILTROS */
+
+.filtro-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+
+/* BOTÓN DE FILTROS */
+
+.filter-btn {
+    border: none;
+    background: transparent;
+    font-size: 28px;
+    color: var(--azul-claro);
+    cursor: pointer;
+}
+
+
+/* PANEL DE FILTROS */
+
+.panel-filtros {
+    position: absolute;
+
+    top: 45px;
+    right: 0;
+
+    width: 240px;
+
+    padding: 16px;
+
+    background: var(--blanco);
+
+    border: 1px solid var(--gris-claro);
+    border-radius: 10px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+    z-index: 100;
+}
+
+
+/* FILTRO INDIVIDUAL */
+
+.filtro-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    margin-bottom: 15px;
+}
+
+.filtro-item:last-child {
+    margin-bottom: 0;
+}
+
+
+/* LABEL */
+
+.filtro-item label {
+    font-size: 13px;
+    color: var(--gris-oscuro);
+}
+
+
+/* SELECT */
+
+#filtro-categoria {
+    width: 100%;
+
+    padding: 7px 10px;
+
+    border: 1px solid var(--gris-claro);
+    border-radius: 6px;
+
+    background: var(--blanco);
+    color: #333;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+
+/* CHECKBOX */
+
+.filtro-disponibilidad {
+    flex-direction: row;
+    align-items: center;
+
+    gap: 8px;
+}
+
+#filtro-disponibilidad {
+    width: 16px;
+    height: 16px;
+
+    margin: 0;
+
+    cursor: pointer;
+}
+
+.filtro-disponibilidad label {
+    margin: 0;
+    cursor: pointer;
+}

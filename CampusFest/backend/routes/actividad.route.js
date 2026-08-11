@@ -33,14 +33,14 @@ router.post("/", async (req, res) => {
 
 
 //Get general
-router.get("/", async (req, res) => {
-  try {
-    const actividades = await Actividad.find();
-    res.json(actividades);
-  } catch (error) {
-    res.status(500).json({ msj: "Error al obtener las actividades", error });
-  }
-});
+// router.get("/", async (req, res) => {
+//   try {
+//     const actividades = await Actividad.find();
+//     res.json(actividades);
+//   } catch (error) {
+//     res.status(500).json({ msj: "Error al obtener las actividades", error });
+//   }
+// });
 
 //Get por id
 router.get("/:id", async (req, res) => {
@@ -57,6 +57,55 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//get filtros
+router.get("/", async (req, res) => {
+  try {
+    const { busqueda, categoria, fechaInicio } = req.query;
+
+    const filtro = {};
+
+    // Búsqueda por nombre, descripción o ubicacion
+    if (busqueda) {
+      filtro.$or = [
+        {
+          nombre: {
+            $regex: busqueda,
+            $options: "i"
+          }
+        },
+        {
+          descripcion: {
+            $regex: busqueda,
+            $options: "i"
+          }
+        },
+        {
+          ubicacion: {
+            $regex: busqueda,
+            $options: "i"
+          }
+        }
+      ];
+    }
+
+    // Filtro por categoría
+    if (categoria) {
+      filtro.categoria = categoria;
+    }
+
+    // Filtro por fecha
+    // if (fecha) {
+    //   filtro.fechaInicio = fecha;
+    // }
+
+    const actividades = await Actividad.find(filtro);
+
+    res.json(actividades);
+
+  } catch (error) {
+    res.status(500).json({mensaje: "Error al obtener actividades", error: error.message});
+  }
+});
 
 //Patch agregar visitante
 router.patch("/visitantes/:id", async (req, res) => {
@@ -182,7 +231,7 @@ router.put("/:id", async (req, res) => {
 
   try {
     let actividad = await Actividad.findById(id);
-    if(actividad.cupos > dataActualizada.cupos){
+    if (actividad.cupos > dataActualizada.cupos) {
       return res.status(499).json({ error: "La cantidad de cupos no puede disminuir" });
     }
 
