@@ -128,18 +128,11 @@
     color: var(--blanco);
 }
 
-/* .body-dark input:focus,
-.body-dark select:focus,
-.body-dark textarea:focus {
-    background-color: var(--gris-oscuro);
-    color: var(--blanco);
-} */
-
 .body-dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }
 
-.body-dark #btnGuardar, .body-dark #btnInscripcion{
+.body-dark #btnGuardar, .body-dark #btnInscripcion, .body-dark .btnDetalle{
     background-color: var(--celeste);
     color: var(--gris-oscuro);
 }
@@ -155,3 +148,17 @@
 .general-dark#nombre{
     color: var(--celeste);
 }
+
+.body-dark .item-element{
+    color: var(--blanco);
+}
+
+.body-dark .label-agenda{
+    color: var(--celeste);
+}
+
+.body-dark .agenda-item{
+    border: var(--blanco) solid 1px;
+    color: var(--blanco);
+}
+
