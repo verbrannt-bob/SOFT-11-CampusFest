@@ -1,10 +1,9 @@
 :root{
-  --navbar-height: 50px; /* change this to your real navbar height */
+  --navbar-height: 50px;
 }
 
 #carouselExampleIndicators{
   height: calc(100vh - var(--navbar-height) - 1px);
-  height: calc(100dvh - var(--navbar-height) - 1px);
 }
 
 #carouselExampleIndicators .carousel-inner,
@@ -17,4 +16,12 @@
   width: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.carousel-control-prev.btn-dark {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.carousel-control-next.btn-dark {
+  background-color: rgba(0, 0, 0, 0);
 }
