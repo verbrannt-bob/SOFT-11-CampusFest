@@ -51,3 +51,29 @@
     color: var(--azul);
     background-color: var(--gris-claro);
 }
+
+
+.tarjeta-dark .stand-card,.tarjeta-dark .btn-menu,.tarjeta-dark .menu-opciones,.tarjeta-dark .menu-opciones button{
+    background-color: var(--gris-medio);
+    color: var(--blanco);
+}
+
+.tarjeta-dark .card-header p{
+    color: var(--celeste);
+}
+
+.tarjeta-dark .menu-opciones button:hover {
+    background: var(--gris-oscuro);
+}
+
+.tarjeta-dark input, .tarjeta-dark select, .tarjeta-dark textarea, .tarjeta-dark ::placeholder, .tarjeta-dark option{
+    background: var(--gris-oscuro);
+    color: var(--blanco);
+}
+
+.tarjeta-dark input:focus,
+.tarjeta-dark select:focus,
+.tarjeta-dark textarea:focus {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco);
+}
