@@ -22,7 +22,7 @@
 }
 
 .hamburger-dark{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.9);
     color: var(--blanco);
 }
 
@@ -115,4 +115,42 @@
 
 .body-dark #filtro-disponibilidad {
     accent-color: var(--celeste);
+}
+
+.body-dark #categoria {
+    background-color: var(--azul-claro);
+    border-color: var(--blanco);
+    color: var(--blanco);
+}
+
+.body-dark #fechaInicio, .body-dark #fechaFinal, .body-dark #fechaHora, .body-dark #ubicacion, .body-dark #descripcion, .body-dark #requisitos{
+    border: var(--blanco) solid 1px;
+    color: var(--blanco);
+}
+
+/* .body-dark input:focus,
+.body-dark select:focus,
+.body-dark textarea:focus {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco);
+} */
+
+.body-dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.body-dark #btnGuardar, .body-dark #btnInscripcion{
+    background-color: var(--azul-claro);
+}
+
+.body-dark .fa-calendar-days{
+    color: var(--blanco)
+}
+
+.general-dark.input-group-text{
+    background-color: var(--azul-claro)
+}
+
+.general-dark#nombre{
+    color: var(--azul-claro);
 }

@@ -134,7 +134,7 @@
     align-items: baseline;
 }
 
-.btnGuardar {
+#btnGuardar {
     background-color: var(--azul);
     color: var(--blanco);
     border-radius: 5px;
