@@ -9,7 +9,7 @@ const duracion = document.getElementById("duracion");
 const cuposMax = document.getElementById("cuposMax");
 const cuposDisponible = document.getElementById("cuposDisponibles");
 const requisitos = document.getElementById("requisitos");
-const btn = document.getElementById("btnInscripcion");
+const btnInscripcion = document.getElementById("btnInscripcion");
 let cantidadInscritos;
 // import {} from './actividades.js'
 
@@ -22,6 +22,7 @@ async function cargarActividad(id){
     }).then(response => response.json())
     .then(data => {
         nombre.textContent = data.nombre;
+        localStorage.setItem("nombreActividad", data.nombre);
         categoria.textContent = data.categoria;
         descripcion.textContent = data.descripcion;
         fechaHora.value = new Date(data.horario.fechaInicio).toISOString().slice(0, 16);
@@ -29,7 +30,8 @@ async function cargarActividad(id){
         ubicacion.textContent = data.ubicacion;
         cantidadInscritos = data.visitantesInscritos.length;
         cuposMax.textContent = data.cupos;
-        cuposDisponible.textContent = data.cupos - cantidadInscritos;
+        const cuposDisponibles = data.cupos - cantidadInscritos
+        cuposDisponible.textContent = cuposDisponibles;
         actualizarBoton(data.cupos, cantidadInscritos);
         requisitos.textContent = data.requisitos;
     })
@@ -63,6 +65,10 @@ function actualizarBoton(cupos, cantidad){
         btn.textContent = "Lista de Espera";
     }
 }
+
+btnInscripcion.addEventListener("click", () => {
+    window.location.href = "./formularioInscripcion.html";
+})
 
 cargarActividad("6a78f08dead80b1a1bf03eb7");
 

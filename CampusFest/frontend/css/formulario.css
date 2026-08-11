@@ -1,28 +1,20 @@
-:root {
-    --azul: #164a98;
-    --azul-claro: #006AEA;
-    --celeste: #9CC8FF;
-    --gris-claro: #d2d2d2;
-    --gris-oscuro: #7c7b75;
-    --blanco: white;
-}
-
-/* .body {
-    font-family: CircularStd, sans-serif;
-} */
-
-
 .formulario {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 40vw;
-    padding: 2rem;
+    padding: 10px;
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    height: calc(100vh - var(--navbar-height) - 20px);
 }
 
 .input-requerido{
     font-weight: bold;
     color: var(--azul);
+}
+
+.input-requerido.general-dark{
+    font-weight: bold;
+    color: var(--naranja);
 }
 
 #sugerenciasActividad {
@@ -38,9 +30,14 @@
 }
 .btn-registrar{
     background-color: var(--azul);
-    padding: 1rem;
+    padding: 5px;
     border: var(--blanco) solid 1px;
     border-radius: 12px;
     color: var(--blanco);
     flex: 1 1 0;
+}
+
+.input-error{
+    border-color: var(--rojo);
+    border-width: 2px;
 }

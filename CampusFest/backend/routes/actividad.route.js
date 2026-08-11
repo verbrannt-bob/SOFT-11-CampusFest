@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require("mongoose");
 const router = express.Router();
 const Certificacion = require("../models/actividad.model");
 const Actividad = require('../models/actividad.model');
@@ -64,25 +65,21 @@ router.patch("/visitantes/:id", async (req, res) => {
   const { visitanteId } = req.body;
 
   try {
-    const actividad = await Actividad.findById(id);
-
-    if (actividad.cupos <= actividad.visitantesInscritos.length) {
-      return res.status(401).json({ error: "La Actividad esta llena" });
+    const actividadCheck = await Actividad.findById(id);
+    if (actividadCheck.visitantesInscritos.includes(visitanteId)) {
+      res.status(499).json({ msj: "El visitante ya esta registrado a esta actividad", error });
     }
 
-    const actividadActualizada = await Actividad.findByIdAndUpdate(
+    const actividad = await Actividad.findByIdAndUpdate(
       id,
-      { $addToSet: { visitantesInscritos: visitanteId } },
+      { $push: { visitantesInscritos: visitanteId } },
       { returnDocument: "after" }
     ).populate("visitantesInscritos");
-    if (!actividadActualizada) {
-      return res.status(404).json({ error: "Actividad no encontrado" });
-    }
-    res.status(200).json({ mensaje: "Actividad Actualizada", actividad: actividadActualizada });
+    res.status(201).json({ mensaje: "Visitante agregado", actividad: actividad });
   } catch (error) {
-    res.status(400).json({ mensajeError: error.message });
+    res.status(500).json({ msj: "Error al agregar el visitante a la actividad", error });
   }
-});
+})
 
 
 //Patch agrea visitante a la lista de espera
@@ -91,9 +88,14 @@ router.patch("/espera/:id", async (req, res) => {
   const { visitanteId } = req.body;
 
   try {
+    const actividadCheck = await Actividad.findById(id);
+    if (actividadCheck.listaEspera.includes(visitanteId)) {
+      res.status(499).json({ msj: "El visitante ya esta registrado en la lista de espera", error });
+    }
+
     const actividad = await Actividad.findByIdAndUpdate(
       id,
-      { $addToSet: { listaEspera: visitanteId } },
+      { $push: { listaEspera: visitanteId } },
       { returnDocument: "after" }
     ).populate("listaEspera");
     if (!actividad) {
@@ -182,7 +184,7 @@ router.put("/:id", async (req, res) => {
 
   try {
     let actividad = await Actividad.findById(id);
-    if(actividad.cupos > dataActualizada.cupos){
+    if (actividad.cupos > dataActualizada.cupos) {
       return res.status(499).json({ error: "La cantidad de cupos no puede disminuir" });
     }
 

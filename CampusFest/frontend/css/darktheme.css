@@ -1,0 +1,79 @@
+:root {
+    --navbar-height: 50px;
+    --azul: #164a98;
+    --azul-claro: #006AEA;
+    --celeste: #9CC8FF;
+    --gris-claro: #d2d2d2;
+    --gris-medio: #7c7b75;
+    --gris-oscuro: #3e3e3c;
+    --blanco: white;
+    --naranja: #ffc63e;
+    --rojo: #d2232a;
+}
+
+.body-dark{
+    background-color: var(--gris-oscuro);
+}
+
+.general-dark {
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--blanco);
+    border-color: var(--blanco);
+}
+
+.hamburger-dark{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--blanco);
+}
+
+.bar-dark{
+    background-color: var(--blanco);
+}
+
+.navbar-shadow-dark {
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05);
+}
+
+.login-dark{
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--blanco);
+    color: var(--blanco);
+}
+
+.input-dark{
+    border-color: var(--blanco);
+    color: var(--blanco);
+    background-color: inherit;
+}
+
+.btn-dark {
+    border-color: var(--azul);
+    color: var(--azul);
+    background-color: var(--gris-claro);
+}
+
+
+.tarjeta-dark .stand-card,.tarjeta-dark .btn-menu,.tarjeta-dark .menu-opciones,.tarjeta-dark .menu-opciones button{
+    background-color: var(--gris-medio);
+    color: var(--blanco);
+}
+
+.tarjeta-dark .card-header p{
+    color: var(--celeste);
+}
+
+.tarjeta-dark .menu-opciones button:hover {
+    background: var(--gris-oscuro);
+}
+
+.tarjeta-dark input, .tarjeta-dark select, .tarjeta-dark textarea, .tarjeta-dark ::placeholder, .tarjeta-dark option{
+    background: var(--gris-oscuro);
+    color: var(--blanco);
+}
+
+.tarjeta-dark input:focus,
+.tarjeta-dark select:focus,
+.tarjeta-dark textarea:focus {
+    background-color: var(--gris-oscuro);
+    color: var(--blanco);
+}
