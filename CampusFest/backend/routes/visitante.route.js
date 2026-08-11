@@ -36,9 +36,14 @@ router.patch("/actividades/:id", async (req, res) => {
     const { actividadId } = req.body;
 
     try {
+        const visitanteCheck = await Visitante.findById(id);
+        if (visitanteCheck.actividades.includes(actividadId)) {
+            res.status(499).json({ msj: "El visitante ya tiene esta actividad en su lista", error });
+        }
+
         const visitante = await Visitante.findByIdAndUpdate(
             id,
-            { $addToSet: { actividades: actividadId } },
+            { $push: { actividades: actividadId } },
             { returnDocument: "after" }
         ).populate("actividades");
         res.status(201).json({ mensaje: "Actividad agregada", visitante: visitante });

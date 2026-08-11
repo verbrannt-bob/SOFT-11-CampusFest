@@ -13,14 +13,10 @@ const btnGuardar = document.getElementById("btnGuardar");
 
 function validar(){
     let error = false;
-    console.log(btnCategoria.textContent.trim())
-    console.log(btnCategoria.textContent.trim() === "Categoría")
     if (btnCategoria.textContent.trim() == "Categoría"){
         error = true;
     }
     inputsRequeridos.forEach(input =>{
-        console.log(input.value);
-        console.log(!input.value);
         if(!input.value){
             error = true;
         }
@@ -41,7 +37,6 @@ function validar(){
 }
 
 async function crearActividad() {
-    console.log(inputFechaInicio.value);
     const datosActividad = {
         nombre: inputNombre.value,
         descripcion: inputDescripcion.value,
@@ -54,7 +49,6 @@ async function crearActividad() {
         ubicacion: inputUbicacion.value,
         requisitos: inputRequisitos.value
     };
-    console.log(datosActividad);
     fetch("http://localhost:3000/actividades", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
