@@ -165,7 +165,7 @@ async function inscribirVisitante() {
         idVisitante = await postVisitante(idActividad);
         console.log("VISITANTE AFTER POSTVISITANTE:" + idVisitante);
     } else {
-        patchVisitante(idVisitante, idActividad);
+        await patchVisitante(idVisitante, idActividad);
     }
 
     if (cuposActividad > 0) {

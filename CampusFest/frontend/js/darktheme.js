@@ -13,9 +13,10 @@ const inputs = document.querySelectorAll('input');
 const labels = document.querySelectorAll('label');
 const textareas = document.querySelectorAll('textarea');
 const spans = document.querySelectorAll('span');
+const searchBar = document.querySelector(".search-bar");
 
 
-if(localStorage.getItem("dark") == null){
+if (localStorage.getItem("dark") == null) {
     localStorage.setItem("dark", "false");
 }
 
@@ -59,9 +60,20 @@ function toggleDark() {
         spans.forEach(item => {
             item.classList.add("general-dark");
         })
-        tarjetas.forEach(item => {
-            item.classList.add("tarjeta-dark");
-        })
+        if (typeof tarjetas !== "undefined") {
+            tarjetas.forEach(item => {
+                item.classList.add("tarjeta-dark");
+            });
+        }
+        if (window.tarjetasActividad) {
+            window.tarjetasActividad.forEach(item => {
+                item.classList.add("tarjeta-dark");
+            });
+        }
+        if (searchBar) {
+            searchBar.classList.add("search-dark");
+        }
+
     } else {
         localStorage.setItem("dark", "false");
         body.classList.remove("body-dark");
@@ -96,8 +108,19 @@ function toggleDark() {
         spans.forEach(item => {
             item.classList.remove("general-dark");
         })
-        tarjetas.forEach(item => {
-            item.classList.remove("tarjeta-dark");
-        })
+        if (typeof tarjetas !== "undefined") {
+            tarjetas.forEach(item => {
+                item.classList.remove("tarjeta-dark");
+            });
+        }
+        if (window.tarjetasActividad) {
+            window.tarjetasActividad.forEach(item => {
+                item.classList.remove("tarjeta-dark");
+            });
+        }
+        if (searchBar) {
+            searchBar.classList.remove("search-dark");
+        }
+
     }
 }
