@@ -1,5 +1,5 @@
 const contenedor = document.getElementById("contenedor");
-export let actividadID = "";
+const btnCreacion = document.getElementById("btnCreacion");
 
 
 function formatearFecha(fecha) {
@@ -30,15 +30,15 @@ async function cargarTarjetas() {
             "Content-Type": "Application/json"
         }
     })
-    .then(response=> response.json())
-    .then(listaActividades => {
-        contenedor.innerHTML = "";
+        .then(response => response.json())
+        .then(listaActividades => {
+            contenedor.innerHTML = "";
 
-        listaActividades.forEach(actividad =>{
-            const tarjeta = document.createElement("div");
+            listaActividades.forEach(actividad => {
+                const tarjeta = document.createElement("div");
 
-            tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
-            tarjeta.innerHTML = `
+                tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
+                tarjeta.innerHTML = `
                 <div class="actividad-card">
                     <div class="card-header">
                         <p>${actividad.nombre}</p>
@@ -68,33 +68,41 @@ async function cargarTarjetas() {
                 </div>
             `;
 
-            contenedor.appendChild(tarjeta);
+                contenedor.appendChild(tarjeta);
 
-            const botonEditar = tarjeta.querySelector(".btn-editar");
+                const botonEditar = tarjeta.querySelector(".btn-editar");
 
-            botonEditar.addEventListener("click", () => {
+                botonEditar.addEventListener("click", () => {
 
-                    actividadID = actividad._id;
-            })
-            
-            
-            // .then(() => {
-            //     window.location.href = "./actualizarActividad.html";
-            // })
+                    localStorage.setItem("idActividad", actividad._id);
+                    window.location.href = "./actualizarActividad.html";
+                })
 
-            const botonDetalles = tarjeta.querySelector(".btn-detalles");
 
-            botonDetalles.addEventListener("click", () => {
+                const botonDetalles = tarjeta.querySelector(".btn-detalles");
 
-                    actividadID = actividad._id;
-            })
+                botonDetalles.addEventListener("click", () => {
 
-            // .then(() => {
-            //     window.location.href = "./detalleActividad.html";
-            // })
+                    localStorage.setItem("idActividad", actividad._id);
+                    window.location.href = "./detalleActividad.html";
+                })
 
+                window.addEventListener('storage', toggleBotones);
+
+                function toggleBotones(){
+                    console.log("toggle botones");
+                    if(localStorage.getItem("autenticado") == "true"){
+                        botonEditar.classList.remove("d-none");
+                        btnCreacion.classList.remove("d-none");
+                    } else {
+                        botonEditar.classList.add("d-none");
+                        btnCreacion.classList.add("d-none");
+                    }
+                }
+
+                toggleBotones();
+            });
         });
-    });
 }
 
 cargarTarjetas();

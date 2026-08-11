@@ -9,15 +9,15 @@ async function cargarTarjetas() {
             "Content-Type": "Application/json"
         }
     })
-    .then(response=> response.json())
-    .then(listaStands => {
-        contenedor.innerHTML = "";
+        .then(response => response.json())
+        .then(listaStands => {
+            contenedor.innerHTML = "";
 
-        listaStands.forEach(stand =>{
-            const tarjeta = document.createElement("div");
+            listaStands.forEach(stand => {
+                const tarjeta = document.createElement("div");
 
-            tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
-            tarjeta.innerHTML = `
+                tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
+                tarjeta.innerHTML = `
                 <div class="stand-card">
                     <div class="card-header">
                         <p>${stand.nombre}</p>
@@ -52,87 +52,102 @@ async function cargarTarjetas() {
                 </div>
             `;
 
-            contenedor.appendChild(tarjeta);
+                contenedor.appendChild(tarjeta);
 
-            //Boton Menu
-            const botonMenu = tarjeta.querySelector(".btn-menu");
-            const menuOpciones = tarjeta.querySelector(".menu-opciones");
-            const standCard = tarjeta.querySelector(".stand-card");
+                //Boton Menu
+                const botonMenu = tarjeta.querySelector(".btn-menu");
+                const menuOpciones = tarjeta.querySelector(".menu-opciones");
+                const standCard = tarjeta.querySelector(".stand-card");
 
-            botonMenu.addEventListener("click", () => {
+                botonMenu.addEventListener("click", () => {
 
-                const estaAbierto = !menuOpciones.hidden;
-                const tarjetaExistente = contenedor.querySelector(".input-nombre");
-    
-                if (tarjetaExistente) {
-                    return;
+                    const estaAbierto = !menuOpciones.hidden;
+                    const tarjetaExistente = contenedor.querySelector(".input-nombre");
+
+                    if (tarjetaExistente) {
+                        return;
+                    }
+
+                    menuOpciones.hidden = estaAbierto;
+
+                    botonMenu.setAttribute(
+                        "aria-expanded",
+                        !estaAbierto
+                    );
+
+                });
+
+                //Esconder menu cuando el cursor salga de la tarjeta
+                standCard.addEventListener("mouseleave", () => {
+
+                    menuOpciones.hidden = true;
+
+                    botonMenu.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                });
+
+                //Boton Editar
+                const botonEditar = tarjeta.querySelector(".btn-editar");
+
+                botonEditar.addEventListener("click", () => {
+
+                    const tarjetaExistente = contenedor.querySelector(".input-nombre");
+
+                    if (tarjetaExistente) {
+                        return;
+                    }
+
+                    editarTarjeta(tarjeta, stand);
+
+                });
+
+                // Botón Eliminar
+                const botonEliminar = tarjeta.querySelector(".btn-eliminar");
+
+                botonEliminar.addEventListener("click", () => {
+
+                    const tarjetaExistente = contenedor.querySelector(".input-nombre");
+
+                    if (tarjetaExistente) {
+                        return;
+                    }
+
+                    eliminarStand(stand._id);
+
+                });
+
+                tarjetas.push(tarjeta);
+                if (localStorage.getItem("dark") == "true") {
+                    tarjeta.classList.add("tarjeta-dark");
                 }
-                
-                menuOpciones.hidden = estaAbierto;
 
-                botonMenu.setAttribute(
-                    "aria-expanded",
-                    !estaAbierto
-                );
+                window.addEventListener('storage', toggleBotones);
 
-            });
-
-            //Esconder menu cuando el cursor salga de la tarjeta
-            standCard.addEventListener("mouseleave", () => {
-
-                menuOpciones.hidden = true;
-
-                botonMenu.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-            });
-
-            //Boton Editar
-            const botonEditar = tarjeta.querySelector(".btn-editar");
-
-            botonEditar.addEventListener("click", () => {
-
-                const tarjetaExistente = contenedor.querySelector(".input-nombre");
-    
-                if (tarjetaExistente) {
-                    return;
+                function toggleBotones() {
+                    console.log("toggle botones");
+                    if (localStorage.getItem("autenticado") == "true") {
+                        botonMenu.classList.remove("d-none");
+                        btnCrearStand.classList.remove("d-none");
+                    } else {
+                        botonMenu.classList.add("d-none");
+                        btnCrearStand.classList.add("d-none");
+                    }
                 }
 
-                editarTarjeta(tarjeta, stand);
+                toggleBotones();
 
             });
-
-            // Botón Eliminar
-            const botonEliminar = tarjeta.querySelector(".btn-eliminar");
-
-            botonEliminar.addEventListener("click", () => {
-
-                const tarjetaExistente = contenedor.querySelector(".input-nombre");
-    
-                if (tarjetaExistente) {
-                    return;
-                }
-
-                eliminarStand(stand._id);
-
-            });
-
-            tarjetas.push(tarjeta);
-            if(localStorage.getItem("dark") == "true"){
-                tarjeta.classList.add("tarjeta-dark");
-            }
-
         });
-    });
 }
 
-function crearTarjetaVacia(){
+function crearTarjetaVacia() {
     const tarjeta = document.createElement("div");
 
     tarjeta.className = "col-12 col-lg-4 d-flex justify-content-center";
-            tarjeta.innerHTML = `
+    tarjeta.innerHTML = `
                 <div class="stand-card" aria-label="Formulario para crear un nuevo stand" role="region">
                     <div class="card-header">
                         <input id="nombre-stand" type="text" class="form-control input-nombre" placeholder="Nombre del Stand" aria-required="true" required>
@@ -167,27 +182,27 @@ function crearTarjetaVacia(){
                 </div>
             `;
 
-            contenedor.append(tarjeta);
+    contenedor.append(tarjeta);
 
-            //Botón Guardar
-            const botonGuardar = tarjeta.querySelector(".btn-guardar");
+    //Botón Guardar
+    const botonGuardar = tarjeta.querySelector(".btn-guardar");
 
-            botonGuardar.addEventListener("click", () =>{
-                validar(tarjeta);
-            });
+    botonGuardar.addEventListener("click", () => {
+        validar(tarjeta);
+    });
 
 
-            //Botó Cancelar
-            const botonCancelar = tarjeta.querySelector(".btn-cancelar");
+    //Botó Cancelar
+    const botonCancelar = tarjeta.querySelector(".btn-cancelar");
 
-            botonCancelar.addEventListener("click", () =>{
-                tarjeta.remove();
-            });
+    botonCancelar.addEventListener("click", () => {
+        tarjeta.remove();
+    });
 
-            tarjetas.push(tarjeta);
-            if(localStorage.getItem("dark") == "true"){
-                tarjeta.classList.add("tarjeta-dark");
-            }
+    tarjetas.push(tarjeta);
+    if (localStorage.getItem("dark") == "true") {
+        tarjeta.classList.add("tarjeta-dark");
+    }
 }
 
 
@@ -196,7 +211,7 @@ const btnCrearStand = document.getElementById("btnCrearStand");
 btnCrearStand.addEventListener("click", () => {
 
     const tarjetaExistente = contenedor.querySelector(".input-nombre");
-    
+
     if (tarjetaExistente) {
         return;
     }
@@ -337,7 +352,7 @@ async function editarTarjeta(tarjeta, stand) {
     //Botón Guardar
     const botonGuardar = tarjeta.querySelector(".btn-guardar");
 
-    botonGuardar.addEventListener("click", () =>{
+    botonGuardar.addEventListener("click", () => {
         validar(tarjeta, stand._id);
     });
 
@@ -345,10 +360,10 @@ async function editarTarjeta(tarjeta, stand) {
     //Botó Cancelar
     const botonCancelar = tarjeta.querySelector(".btn-cancelar");
 
-    botonCancelar.addEventListener("click", () =>{
+    botonCancelar.addEventListener("click", () => {
         cargarTarjetas();
     });
-    
+
 }
 
 async function actualizarStand(tarjeta, id) {
@@ -406,7 +421,7 @@ async function actualizarStand(tarjeta, id) {
 
 }
 
-async function eliminarStand(id){
+async function eliminarStand(id) {
     const resultado = await Swal.fire({
         title: "¿Eliminar stand?",
         text: "Esta acción no se puede deshacer.",
@@ -480,7 +495,7 @@ function validar(tarjeta, id = null) {
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#164a98",
             });
-        }else{    
+        } else {
             Swal.fire({
                 title: "No se puede registrar el stand",
                 text: "Por favor complete los campos resaltados.",
@@ -489,14 +504,14 @@ function validar(tarjeta, id = null) {
                 confirmButtonText: "Aceptar",
                 confirmButtonColor: "#164a98",
             });
-        }    
+        }
         return;
     }
 
     // Si tiene ID, estamos editando
     if (id) {
         actualizarStand(tarjeta, id);
-    } 
+    }
     // Si no tiene ID, estamos creando
     else {
         guardarStand(tarjeta);
