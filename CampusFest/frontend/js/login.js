@@ -6,6 +6,18 @@ const emailSpan = document.querySelector(".admin-actual");
 const btnLogin = document.getElementById("btn-login");
 const btnLogout = document.getElementById("btn-logout");
 
+//fix para poder escuchar cambios en el storage
+const originalSetItem = localStorage.setItem;
+localStorage.setItem = function(key, value) {
+  const event = new StorageEvent('storage', {
+    key: key,
+    newValue: value,
+    storageArea: localStorage
+  });
+  originalSetItem.apply(this, arguments);
+  window.dispatchEvent(event); // Forces current tab to hear it
+};
+
 navbarUser.addEventListener("click", () => {
     if (localStorage.getItem("autenticado") == "true") {
         cajaLogout.classList.toggle("active");
@@ -53,7 +65,7 @@ btnLogout.addEventListener("click", () => {
     cajaLogout.classList.remove("active");
     Swal.fire({
             icon: "success",
-            title: "Bienvenido",
+            title: "Hasta Luego!",
             text: "Sesión de administrador finalizada correctamente",
             confirmButtonText: "Aceptar",
             confirmButtonColor: "#164a98"

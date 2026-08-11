@@ -53,7 +53,7 @@ async function actualizarActividad() {
         ubicacion: inputUbicacion.value,
         requisitos: inputRequisitos.value
     };
-    fetch("http://localhost:3000/actividades/6a79631334ec5104352e2fa6", {
+    fetch("http://localhost:3000/actividades/" + localStorage.getItem("idActividad"), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(datosActividad)
@@ -77,7 +77,7 @@ async function actualizarActividad() {
                 });
             }
         } else {
-            admitirListaEspera("6a79631334ec5104352e2fa6");
+            admitirListaEspera(localStorage.getItem("idActividad"));
             Swal.fire({
                 icon: "success",
                 title: "Actividad registrada correctamente",
@@ -140,6 +140,6 @@ async function admitirListaEspera(id){
     })
 }
 
-cargarActividad("6a79631334ec5104352e2fa6");
+cargarActividad(localStorage.getItem("idActividad"));
 
 btnGuardar.addEventListener("click", validar);

@@ -62,7 +62,7 @@ function calcularDuracion(dataFechaInicio, dataFechaFinal){
 
 function actualizarBoton(cupos, cantidad){
     if(cupos <= cantidad){
-        btn.textContent = "Lista de Espera";
+        btnInscripcion.textContent = "Lista de Espera";
     }
 }
 
@@ -70,6 +70,6 @@ btnInscripcion.addEventListener("click", () => {
     window.location.href = "./formularioInscripcion.html";
 })
 
-cargarActividad("6a78f08dead80b1a1bf03eb7");
+cargarActividad(localStorage.getItem("idActividad"));
 
 
