@@ -40,7 +40,7 @@ async function cargarTarjetas() {
 
         listaActividades = await response.json();
 
-        mostrarTarjetas(listaActividades);
+        filtrarActividades();
 
 
     } catch (error) {
@@ -249,6 +249,9 @@ const buscador = document.getElementById("buscador");
 const filtroCategoria = document.getElementById("filtro-categoria");
 const filtroDisponibilidad = document.getElementById("filtro-disponibilidad");
 
+const parametrosURL = new URLSearchParams(window.location.search);
+const vieneDeInscripcion = parametrosURL.get("disponibles") === "true";
+
 function filtrarActividades() {
 
     const texto = buscador.value.toLowerCase().trim();
@@ -300,5 +303,9 @@ botonFiltro.addEventListener("click", () => {
     );
 
 });
+
+if (vieneDeInscripcion) {
+    filtroDisponibilidad.checked = true;
+}
 
 cargarTarjetas();
