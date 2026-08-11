@@ -14,7 +14,7 @@ const labels = document.querySelectorAll('label');
 const textareas = document.querySelectorAll('textarea');
 const spans = document.querySelectorAll('span');
 const searchBar = document.querySelector(".search-bar");
-
+const agendaLabels = document.querySelectorAll(".label-agenda");
 
 if (localStorage.getItem("dark") == null) {
     localStorage.setItem("dark", "false");
@@ -73,6 +73,16 @@ function toggleDark() {
         if (searchBar) {
             searchBar.classList.add("search-dark");
         }
+        if(window.agendaItems) {
+            window.agendaItems.forEach(item,() =>{
+                item.classList.classList.add("agenda-dark");
+            })
+        }
+        // if(agendaLabels) {
+        //     agendaLabels.forEach(item,() =>{
+        //         item.classList.classList.add("agenda-dark");
+        //     })
+        // }
 
     } else {
         localStorage.setItem("dark", "false");
@@ -121,6 +131,17 @@ function toggleDark() {
         if (searchBar) {
             searchBar.classList.remove("search-dark");
         }
+
+        if(window.agendaItems) {
+            window.agendaItems.forEach(item,() =>{
+                item.classList.classList.remove("agenda-dark");
+            })
+        }
+        // if(agendaLabels) {
+        //     agendaLabels.forEach(item,() =>{
+        //         item.classList.classList.remove("agenda-dark");
+        //     })
+        // }
 
     }
 }

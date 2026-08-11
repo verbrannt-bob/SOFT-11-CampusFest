@@ -17,27 +17,93 @@
     <link href="https://fonts.cdnfonts.com/css/din-alternate" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@vetixy/circular-std@1.0.0/dist/index.min.css" rel="stylesheet">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/logo.png">
+
     <!-- CSS -->
+    <link rel="stylesheet" href="css/agenda.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/carousel.css">
+    <link rel="stylesheet" href="css/darktheme.css">
 
 </head>
 
 <body>
     <nav class="container-fluid topbar">
-        <ul class="row d-flex justify-content-between align-items-center barra">
-            <li class="col-2 logo-container"><a class="logo" href="./index.html">CampusFest</a></li>
+        <ul class="row d-flex justify-content-md-evenly justify-content-between align-items-center barra">
+            <div class="col-2 d-flex d-md-none justify-content-start caja-hamburger">
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+            <li class="col-md-2 col-4 logo-container d-flex justify-content-center"><a class="logo"
+                    href="./index.html">CampusFest</a></li>
             <li class="col-1 navbar-item"><a href="./actividades.html">Actividades</a></li>
             <li class="col-1 navbar-item"><a href="./actividades.html">Inscripcion</a></li>
             <li class="col-1 navbar-item"><a href="./agenda.html">Agenda</a></li>
             <li class="col-1 navbar-item"><a href="./stands.html">Stands</a></li>
             <li class="col-1 navbar-item"><a href="./contacto.html">Contacto</a></li>
-            <li class="col-1 navbar-item navbar-user"><i class="fa-regular fa-user fa-xl"></i></li>
+            <li class="col-md-1 col-2 navbar-icons d-flex justify-content-md-start justify-content-between">
+                <i id=tema class="fa-solid fa-circle-half-stroke fa-lg" aria-hidden="true"
+                    aria-describedby="Toggle Dark Theme"></i>
+                <i id="login" class="fa-regular fa-user fa-xl" aria-hidden="true" aria-describedby="Iniciar Sesión"></i>
+                <form class="caja-login d-flex flex-column justify-content-evenly align-items-center"
+                    aria-labelledby="crear actividad" novalidate onsubmit="event.preventDefault()">
+                    <label class="login-label" for="admin-email">Administrador</label>
+                    <input type="email" id="admin-email" name="admin-email" class="admin-email" autocomplete="off">
+                    <button type="submit" class="btn-login" id="btn-login">Iniciar Sesión</button>
+                </form>
+                <div class="caja-logout d-flex flex-column justify-content-evenly align-items-center">
+                    <label class="login-label">Ingresado como:</label>
+                    <span class="admin-actual"></span>
+                    <button type="button" class="btn-login" id="btn-logout">Terminar Sesión</button>
+                </div>
+            </li>
+            <!-- <li class="col-1 navbar-item navbar-user"></li> -->
+        </ul>
+
+        <ul class="hamburger-menu">
+            <a href="./actividades.html" class="hamburger-item">
+                <li>Actividades</li>
+            </a>
+            <a href="./actividades.html" class="hamburger-item">
+                <li>Inscripcion</li>
+            </a>
+            <a href="./agenda.html" class="hamburger-item">
+                <li>Agenda</li>
+            </a>
+            <a href="./stands.html" class="hamburger-item">
+                <li>Stands</li>
+            </a>
+            <a href="./contacto.html" class="hamburger-item">
+                <li>Contacto</li>
+            </a>
         </ul>
     </nav>
 
+    <main class="contenedor container-fluid d-flex flex-column justify-content-evenly align-items-center mt-4">
+        <div class="agenda-pasada d-flex flex-column align-items-center justify-content-evenly">
+            <p class="label-agenda">Eventos Pasados</p>
+        </div>
+        <span class="division"></span>
+        <div class="agenda-futura d-flex flex-column align-items-center justify-content-evenly">
+            <p class="label-agenda">Eventos Futuros</p>
+        </div>
+    </main>
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="module" src="./js/agenda.js"></script>
+    <script src="./js/hamburger.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/darktheme.js"></script>
+    <script src="./js/navbar.js"></script>
 
 </body>
 

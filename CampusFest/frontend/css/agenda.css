@@ -1,0 +1,65 @@
+.division {
+    border-bottom: var(--azul-claro) 1px solid;
+    width: 95%;
+}
+
+body {
+    font-family: CircularStd, sans-serif;
+}
+
+.agenda-pasada, .agenda-futura {
+    width: 90%;
+}
+
+.agenda-pasada{
+    margin-bottom: 10vh;
+}
+
+.agenda-futura {
+    margin-top: 10vh;
+}
+
+.divisor {
+    font-weight: 300;
+    font-size: 30px;
+}
+
+.agenda-item {
+    width: 100%;
+    height: 50px;
+    border: var(--azul) 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.item-element {
+    flex: 1 1 auto;
+    color: var(--azul-claro);
+}
+
+.item-element .agenda-dark {
+    color: var(--gris-claro);
+}
+
+.btnDetalle {
+    background-color: var(--azul-claro);
+    border-radius: 5px;
+    border: var(--azul) 1px solid;
+    color: var(--blanco);
+    padding: 5px 20px;
+}
+
+.btnDetalle .btn-dark{
+    color: var(--gris-oscuro);
+    background-color: var(--celeste);
+    border-color: black;
+}
+
+.label-agenda{
+    font-size: 20px;
+    color: var(--azul);
+}
+
+.label-agenda agenda-dark{
+    color: white;
+}
