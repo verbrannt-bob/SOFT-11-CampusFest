@@ -35,7 +35,7 @@
 }
 
 .login-dark{
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(39, 38, 38, 0.904);
     border-color: var(--blanco);
     color: var(--blanco);
 }
@@ -118,9 +118,9 @@
 }
 
 .body-dark #categoria {
-    background-color: var(--azul-claro);
-    border-color: var(--blanco);
-    color: var(--blanco);
+    background-color: var(--celeste);
+    border-color: black;
+    color: var(--gris-oscuro);
 }
 
 .body-dark #fechaInicio, .body-dark #fechaFinal, .body-dark #fechaHora, .body-dark #ubicacion, .body-dark #descripcion, .body-dark #requisitos{
@@ -140,17 +140,18 @@
 }
 
 .body-dark #btnGuardar, .body-dark #btnInscripcion{
-    background-color: var(--azul-claro);
+    background-color: var(--celeste);
+    color: var(--gris-oscuro);
 }
 
 .body-dark .fa-calendar-days{
-    color: var(--blanco)
+    color: var(--gris-oscuro)
 }
 
 .general-dark.input-group-text{
-    background-color: var(--azul-claro)
+    background-color: var(--celeste);
 }
 
 .general-dark#nombre{
-    color: var(--azul-claro);
+    color: var(--celeste);
 }
