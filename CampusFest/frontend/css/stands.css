@@ -223,3 +223,7 @@ body{
 .btn-eliminar {
     color: #dc3545;
 }
+
+.input-error {
+    border: 2px solid red;
+}

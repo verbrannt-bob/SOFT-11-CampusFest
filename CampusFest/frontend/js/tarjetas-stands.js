@@ -1,4 +1,5 @@
 const contenedor = document.getElementById("contenedor");
+let tarjetas = [];
 
 async function cargarTarjetas() {
 
@@ -118,6 +119,11 @@ async function cargarTarjetas() {
 
             });
 
+            tarjetas.push(tarjeta);
+            if(localStorage.getItem("dark") == "true"){
+                tarjeta.classList.add("tarjeta-dark");
+            }
+
         });
     });
 }
@@ -167,7 +173,7 @@ function crearTarjetaVacia(){
             const botonGuardar = tarjeta.querySelector(".btn-guardar");
 
             botonGuardar.addEventListener("click", () =>{
-                guardarStand(tarjeta);
+                validar(tarjeta);
             });
 
 
@@ -177,6 +183,11 @@ function crearTarjetaVacia(){
             botonCancelar.addEventListener("click", () =>{
                 tarjeta.remove();
             });
+
+            tarjetas.push(tarjeta);
+            if(localStorage.getItem("dark") == "true"){
+                tarjeta.classList.add("tarjeta-dark");
+            }
 }
 
 
@@ -327,7 +338,7 @@ async function editarTarjeta(tarjeta, stand) {
     const botonGuardar = tarjeta.querySelector(".btn-guardar");
 
     botonGuardar.addEventListener("click", () =>{
-        actualizarStand(tarjeta, stand._id);
+        validar(tarjeta, stand._id);
     });
 
 
@@ -438,5 +449,58 @@ async function eliminarStand(id){
     }
 }
 
+
+function validar(tarjeta, id = null) {
+
+    const inputsRequeridos = tarjeta.querySelectorAll(
+        "input[required], select[required], textarea[required]"
+    );
+
+    let error = false;
+
+    inputsRequeridos.forEach(element => {
+
+        if (element.value.trim() === "") {
+            element.classList.add("input-error");
+            error = true;
+        } else {
+            element.classList.remove("input-error");
+        }
+
+    });
+
+    if (error) {
+
+        if (id) {
+            Swal.fire({
+                title: "No se puede guardar el stand",
+                text: "Por favor complete los campos resaltados.",
+                icon: "warning",
+                iconColor: "#006AEA",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#164a98",
+            });
+        }else{    
+            Swal.fire({
+                title: "No se puede registrar el stand",
+                text: "Por favor complete los campos resaltados.",
+                icon: "warning",
+                iconColor: "#006AEA",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: "#164a98",
+            });
+        }    
+        return;
+    }
+
+    // Si tiene ID, estamos editando
+    if (id) {
+        actualizarStand(tarjeta, id);
+    } 
+    // Si no tiene ID, estamos creando
+    else {
+        guardarStand(tarjeta);
+    }
+}
 
 cargarTarjetas();
