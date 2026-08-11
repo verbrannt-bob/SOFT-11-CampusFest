@@ -1,7 +1,6 @@
 const contenedor = document.getElementById("contenedor");
 window.tarjetasActividad = [];
 let listaActividades = [];
-// export let actividadID = "";
 const btnCreacion = document.getElementById("btnCreacion");
 
 
@@ -132,6 +131,21 @@ function mostrarTarjetas(actividades) {
                 "false"
             );
 
+                window.addEventListener('storage', toggleBotones);
+
+                function toggleBotones(){
+                    console.log("toggle botones");
+                    if(localStorage.getItem("autenticado") == "true"){
+                        botonEditar.classList.remove("d-none");
+                        btnCreacion.classList.remove("d-none");
+                    } else {
+                        botonEditar.classList.add("d-none");
+                        btnCreacion.classList.add("d-none");
+                    }
+                }
+
+                toggleBotones();
+            });
         });
 
         //Boton Editar
